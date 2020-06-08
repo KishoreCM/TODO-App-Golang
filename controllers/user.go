@@ -184,11 +184,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	if createdUser.Error != nil {
 		fmt.Println(errMessage)
 	}
-	res := Response{
-		Message: "User Registered Successfully!",
-	}
-	json.NewEncoder(w).Encode(res)
-
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
 //FetchUser function

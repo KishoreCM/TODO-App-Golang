@@ -16,6 +16,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/2f4c7d1789.js"></script>
     <title>TODO APP</title>
 </head>
 
@@ -55,28 +56,57 @@
     }
 </script>
 
-<body>
+<body style="background-color: rgb(245, 245, 245);">
+    <nav class="navbar navbar-dark bg-primary">
+        <div style="display: flex; justify-content: flex-end; width: 100%;">
+            <div><a href="/todo/logout" style="text-decoration: none; color: white;">Logout</a></div>
+        </div>
+    </nav>
     <div class="container">
-        <center>
-            <div><button><a href="/todo/logout">Logout</a></button></div>
-            <h1>Your TO-DOs</h1>
+        <div style="margin: 10%;">
+            <center>
+                <h1>Your TO-DOs</h1>
+            </center>
+        </div>
+        <div style="margin: 10%;">
+            <div id="todo">
+                <form action="/todo/createTodo" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" name="newTodo" id="" placeholder="What you gonna do today?"
+                            class="form-control" required>
+                        <div class="input-group-append"><input type="submit" value="Add TO-DO"
+                                class="btn btn-outline-secondary"></div>
+                    </div>
+                </form>
+            </div>
             {{with $1 := .Todos}}
             <div>
                 {{range $1}}
-                <form action="/todo/updateTodo/{{.ID}}" method="POST" id="todo{{.ID}}">
-                    <input type="checkbox" id={{.ID}} name="todoCheckbox" value="{{.Done}}" {{if .Done}} checked {{end}}
-                        onchange="updateTodo(id)">
-                    <label>{{.Description}}</label>
-                    <span><button class="btn btn-danger" onclick="deleteTodo(`{{.ID}}`)">X</button></span><br>
-                </form>
+                <ul class="list-group">
+                    <li
+                        class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                        <form action="/todo/updateTodo/{{.ID}}" method="POST" id="todo{{.ID}}">
+                            <div style="display: flex; flex-direction: row;">
+                                <div style="margin: 10px;">
+                                    <input type="checkbox" id={{.ID}} name="todoCheckbox" value="{{.Done}}" {{if .Done}}
+                                        checked {{end}} onchange="updateTodo(id)">
+                                </div>
+                                <div style="margin: 10px;">
+                                    <label>{{.Description}}</label>
+                                </div>
+                                <div style="position: absolute; right: 20px;">
+                                    <button class="btn btn-danger" onclick="deleteTodo(`{{.ID}}`)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
                 {{end}}
             </div>
             {{end}}
-            <div id="todo"></div>
-            <div>
-                <button onclick="createTodoField()">Add Todo</button>
-            </div>
-        </center>
+        </div>
     </div>
 </body>
 

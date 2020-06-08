@@ -21,27 +21,6 @@
 </head>
 
 <script type="text/javascript">
-    function createTodoField() {
-        let todo = document.getElementById("todo");
-        if (!todo.hasChildNodes()) {
-            var form = document.createElement("form");
-            form.setAttribute('method', "post");
-            form.setAttribute('action', "/todo/createTodo");
-
-            var input = document.createElement("input");
-            input.setAttribute('type', "text");
-            input.setAttribute('name', "newTodo");
-
-            var submit = document.createElement("input");
-            submit.setAttribute('type', "submit");
-            submit.setAttribute('value', "Submit");
-
-            form.appendChild(input);
-            form.appendChild(submit);
-            todo.appendChild(form);
-        }
-    }
-
     function updateTodo(id) {
         checkbox = document.getElementById(id);
         checkbox.value = checkbox.checked
